@@ -21,14 +21,16 @@ class Analyzer
       if @afinn[word] != undefined
         sentiments.push @afinn[word]
 
-    sum = sentiments.reduce (t, s) -> t + s
+    sum = 0
+    for s in sentiments
+      sum += s
     sqrt = Math.sqrt sentiments.length
     callback text, (sum/sqrt)
 
   addToQueue: (text, callback) ->
     @queue.push {'text': text, 'callback': callback}
     if(!@running && @ready) 
-      work()
+      @work()
 
   work: ->
     @running = true
