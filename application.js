@@ -6,8 +6,10 @@
 
     function Analyzer(dictionary_path) {
       var caller;
-      this.ready = false;
       this.afinn = {};
+      this.queue = [];
+      this.running = false;
+      this.ready = false;
       caller = this;
       $.get(dictionary_path, function(data) {
         var line, lines, value, word, _i, _len, _ref;
@@ -17,11 +19,12 @@
           _ref = line.split('\t'), word = _ref[0], value = _ref[1];
           caller.afinn[word] = parseInt(value);
         }
-        return caller.ready = true;
+        caller.ready = true;
+        return caller.work();
       });
     }
 
-    Analyzer.prototype.analyze = function(text) {
+    Analyzer.prototype.analyze = function(text, callback) {
       var sentiments, sqrt, sum, word, words, _i, _len;
       words = text.toLowerCase().split(/\W+/);
       sentiments = [];
@@ -35,8 +38,27 @@
         return t + s;
       });
       sqrt = Math.sqrt(sentiments.length);
-      console.log(sum, sqrt, sum / sqrt);
-      return sum / sqrt;
+      return callback(text, sum / sqrt);
+    };
+
+    Analyzer.prototype.addToQueue = function(text, callback) {
+      this.queue.push({
+        'text': text,
+        'callback': callback
+      });
+      if (!this.running && this.ready) {
+        return work();
+      }
+    };
+
+    Analyzer.prototype.work = function() {
+      var job;
+      this.running = true;
+      while (this.queue.length > 0) {
+        job = this.queue.shift();
+        this.analyze(job.text, job.callback);
+      }
+      return this.running = false;
     };
 
     return Analyzer;
@@ -47,6 +69,12 @@
 
   this.analyzer = new Analyzer('AFINN-111-emo.txt');
 
-  analyzer.analyze("The cool thing about Hulu Plus is that I pay for it but also get ads and I can't watch Wilfred on my iPad hey wait that's not so cool.");
+  analyzer.addToQueue("The cool thing about Hulu Plus is that I pay for it but also get ads and I can't watch Wilfred on my iPad hey wait that's not so cool.", function(text, sentiment) {
+    return console.log(text, sentiment);
+  });
+
+  analyzer.addToQueue("Could @hulu please remind me what my #HuluPlus subscription is for?!?!? Why do I pay $$ for ads and can't watch messages?!?!?", function(text, sentiment) {
+    return console.log(text, sentiment);
+  });
 
 }).call(this);

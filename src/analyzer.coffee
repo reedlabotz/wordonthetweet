@@ -1,7 +1,9 @@
 class Analyzer
   constructor: (dictionary_path) ->
-    @ready = false
     @afinn = {}
+    @queue = []
+    @running = false
+    @ready = false
     caller = @
     $.get dictionary_path, (data) -> 
       lines = data.split '\n'
@@ -9,8 +11,10 @@ class Analyzer
         [word, value] = line.split '\t'
         caller.afinn[word] = parseInt value
       caller.ready = true
+      caller.work()
 
-  analyze: (text) ->
+
+  analyze: (text, callback) ->
     words = text.toLowerCase().split /\W+/
     sentiments = []
     for word in words
@@ -19,5 +23,16 @@ class Analyzer
 
     sum = sentiments.reduce (t, s) -> t + s
     sqrt = Math.sqrt sentiments.length
-    console.log sum, sqrt, sum/sqrt
-    sum/sqrt
+    callback text, (sum/sqrt)
+
+  addToQueue: (text, callback) ->
+    @queue.push {'text': text, 'callback': callback}
+    if(!@running && @ready) 
+      work()
+
+  work: ->
+    @running = true
+    while @queue.length > 0
+      job = @queue.shift()
+      @analyze(job.text, job.callback)
+    @running = false
