@@ -1,12 +1,14 @@
 REFRESH_RATE = 10 * 1000
 
-TWEETS_PER_PAGE = 10
+TWEETS_PER_PAGE = 100
 
-searchTerm = 'hulu'
+searchTerm = ''
 
 analyzer = new Analyzer('AFINN-111-emo.txt')
 
 lastMaxId = 0
+
+timeOut = null
 
 grabTweets = () ->
 	$.getJSON 'http://search.twitter.com/search.json?callback=?', { 
@@ -24,6 +26,11 @@ processTweets = (data) ->
 
 addToInterface = (tweet, sentiment) ->
 	emoticon = if sentiment > 0 then ':)' else if sentiment < 0 then ':(' else ':|'
-	$('body').prepend ("<p>" + emoticon + "   " + tweet + "</p>")
+	$('#results').prepend ("<p>" + emoticon + "   " + tweet + "</p>")
 
-grabTweets()
+$(document).ready -> 
+	$('#searchButton').click () ->
+		clearTimeout(timeOut)
+		$('#results').html('')
+		searchTerm = $("#searchTerm").val()
+		grabTweets()
