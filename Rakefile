@@ -31,6 +31,8 @@ task :publish => [:compile, :minify] do
   replace_min('index.html','publish/index.html')
   puts 'Commit to gh-pages'
   `ORIG_HEAD="$(git name-rev --name-only HEAD)" && git checkout gh-pages && rm -rf $(ls * | grep -v '^publish$') && mv publish/* . && git add -A && git commit -am "automatic update" && git checkout "$ORIG_HEAD"`
+  puts 'Removing publish'
+  `rm -rf publish`
 end
 
 task :clean do
