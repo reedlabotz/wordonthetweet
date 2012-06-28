@@ -25,13 +25,14 @@ grabTweets = () ->
 		processTweets data
 
 processTweets = (data) ->
+	if data['error'] != undefined
+		return timeOut = setTimeout grabTweets, REFRESH_RATE
 	lastMaxId = data['max_id_str']
 	for tweet in data['results']
 		analyzer.addToQueue(tweet['text'], tweet, addToInterface) if tweet['iso_language_code'] == "en"
-	setTimeout grabTweets, REFRESH_RATE
+	timeOut = setTimeout grabTweets, REFRESH_RATE
 
 addToInterface = (tweet, metadata, sentiment) ->
-	console.log metadata
 	emotion = if sentiment > 0 then 'positive' else if sentiment < 0 then 'negative' else 'neutral'
 	switch emotion
 		when 'positive' then positiveCount++
