@@ -1,6 +1,7 @@
 FILES = {'js/*.min.js' => 'js/',
 				 'js/lib/*' => 'js/lib/',
 				 'css/*.min.css' => 'css/',
+				 'img/*' => 'img/',
 				 'AFINN-111-emo.txt' => ''}
 
 task :default => [:compile, :minify]
@@ -11,9 +12,6 @@ task :compile do
 end
 
 task :minify do
-	puts 'Compressing bootstrap.css -> bootstrap.min.css'
-	`recess --compress css/bootstrap.css > css/bootstrap.min.css`
-
 	puts 'Compressing master.css -> master.min.css'
 	`recess --compress css/master.css > css/master.min.css`
 	
@@ -40,8 +38,6 @@ task :clean do
 	`rm js/application.js`
 	puts 'Removing application.min.js'
 	`rm js/application.min.js`
-	puts 'Removing bootstrap.min.css'
-	`rm css/bootstrap.min.css`
 	puts 'Removing master.min.css'
 	`rm css/master.min.css`
 end
