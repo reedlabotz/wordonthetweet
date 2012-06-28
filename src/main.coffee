@@ -4,8 +4,6 @@ TWEETS_PER_PAGE = 10
 
 searchTerm = 'hulu'
 
-analyzer
-
 analyzer = new Analyzer('AFINN-111-emo.txt')
 
 lastMaxId = 0
