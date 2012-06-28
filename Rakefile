@@ -46,6 +46,14 @@ task :clean do
 	`rm css/master.min.css`
 end
 
+task :watch do
+	`coffee --watch --join js/application.js --compile src/*.coffee`
+end
+
+task :server do
+	`python -m SimpleHTTPServer`
+end
+
 def replace_min(file_path, file_out_path)
 	file = File.open(file_path)
 	out_file = File.new(file_out_path, "w")

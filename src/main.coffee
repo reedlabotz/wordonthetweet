@@ -10,6 +10,12 @@ lastMaxId = 0
 
 timeOut = null
 
+positiveCount = 0;
+
+negativeCount = 0;
+
+neutralCount = 0;
+
 grabTweets = () ->
 	$.getJSON 'http://search.twitter.com/search.json?callback=?', { 
 			'q': searchTerm, 
@@ -19,14 +25,22 @@ grabTweets = () ->
 		processTweets data
 
 processTweets = (data) ->
-	console.log data
 	lastMaxId = data['max_id_str']
-	analyzer.addToQueue(tweet['text'], addToInterface) for tweet in data['results']
+	for tweet in data['results']
+		analyzer.addToQueue(tweet['text'], tweet, addToInterface) if tweet['iso_language_code'] == "en"
 	setTimeout grabTweets, REFRESH_RATE
 
-addToInterface = (tweet, sentiment) ->
-	emoticon = if sentiment > 0 then ':)' else if sentiment < 0 then ':(' else ':|'
-	$('#results').prepend ("<p>" + emoticon + "   " + tweet + "</p>")
+addToInterface = (tweet, metadata, sentiment) ->
+	console.log metadata
+	emotion = if sentiment > 0 then 'positive' else if sentiment < 0 then 'negative' else 'neutral'
+	switch emotion
+		when 'positive' then positiveCount++
+		when 'negative' then negativeCount++
+		when 'neutral' then neutralCount++
+	$("<div class='tweet " + emotion + "''>" + 
+	  "<img src='" + metadata['profile_image_url'] + "' class='avatar'>" +
+	  "<strong>@" + metadata['from_user'] + "</strong><br>" + 
+	  tweet + "<div class='clear'></div></div>").hide().prependTo('#results').slideDown("slow");
 
 $(document).ready -> 
 	$('#searchButton').click () ->

@@ -14,7 +14,7 @@ class Analyzer
       caller.work()
 
 
-  analyze: (text, callback) ->
+  analyze: (text, metadata, callback) ->
     words = text.toLowerCase().split /\W+/
     sentiments = []
     for word in words
@@ -25,10 +25,10 @@ class Analyzer
     for s in sentiments
       sum += s
     sqrt = Math.sqrt sentiments.length
-    callback text, (sum/sqrt)
+    callback text, metadata, (sum/sqrt)
 
-  addToQueue: (text, callback) ->
-    @queue.push {'text': text, 'callback': callback}
+  addToQueue: (text, metadata, callback) ->
+    @queue.push {'text': text, 'metadata': metadata, 'callback': callback}
     if(!@running && @ready) 
       @work()
 
@@ -36,5 +36,5 @@ class Analyzer
     @running = true
     while @queue.length > 0
       job = @queue.shift()
-      @analyze(job.text, job.callback)
+      @analyze(job.text, job.metadata, job.callback)
     @running = false
