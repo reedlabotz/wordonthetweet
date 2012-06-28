@@ -10,7 +10,7 @@ Dependencies
 To publish the code doesn't require anything special. Just copy files from gh-pages branch to your server. 
 To use the rake commands, you will need the following.
 ```bash
-npm install coffee-script recess uglify-js
+npm install -g coffee-script recess uglify-js
 ```
 
 Develope

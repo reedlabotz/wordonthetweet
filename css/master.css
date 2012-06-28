@@ -1,38 +1,42 @@
 body{
-	margin: 20px;
+  margin: 20px;
 }
 
 .clear{
-	width: 100%;
-	clear: both;
+  width: 100%;
+  clear: both;
+}
+
+.results{
+  overflow-y: scroll;
 }
 
 .tweet{
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	padding: 5px;
-	margin: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px;
 }
 
 .avatar{
-	float: left;
-	margin-right: 5px;
-	width: 48px;
-	height: 48px;
+  float: left;
+  margin-right: 5px;
+  width: 48px;
+  height: 48px;
 }
 
 .negative{
-	background: #ffd9d9;
-	border: 1px solid #ff1616;
+  background: #ffd9d9;
+  border: 1px solid #ff1616;
 }
 
 .positive{
-	background: #befcc9;
-	border: 1px solid #06b324;
+  background: #befcc9;
+  border: 1px solid #06b324;
 }
 
 .neutral{
-	background: #e0e0e0;
-	border: 1px solid #818181;
+  background: #e0e0e0;
+  border: 1px solid #818181;
 }
