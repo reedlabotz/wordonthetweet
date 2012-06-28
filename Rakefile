@@ -53,18 +53,9 @@ end
 def replace_min(file_path, file_out_path)
   file = File.open(file_path)
   out_file = File.new(file_out_path, "w")
-  in_head = false
   file.each do |line|
-    if !in_head
-      in_head = true if line.strip == '<head>'
-    else
-      if line.strip == '</head>'
-        in_head = false
-      else
-        line = line.gsub(/\.css/,'.min.css') if !line.include?('.min.css')
-        line = line.gsub(/\.js/,'.min.js') if !line.include?('.min.js')
-      end
-    end
+    line = line.gsub(/\.css/,'.min.css') if !line.include?('.min.css') && line.include?('<link')
+    line = line.gsub(/\.js/,'.min.js') if !line.include?('.min.js') && line.include?('<script')
     out_file.puts(line)
   end
   file.close
