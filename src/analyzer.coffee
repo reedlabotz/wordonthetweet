@@ -13,6 +13,13 @@ class Analyzer
       caller.ready = true
       caller.work()
 
+  addToQueue: (text, metadata, callback) ->
+    @queue.push {'text': text, 'metadata': metadata, 'callback': callback}
+    if(!@running && @ready) 
+      @work()
+
+
+  ## Private functions ##
 
   analyze: (text, metadata, callback) ->
     words = text.toLowerCase().split /\W+/
@@ -26,11 +33,6 @@ class Analyzer
       sum += s
     sqrt = Math.sqrt sentiments.length
     callback text, metadata, (sum/sqrt)
-
-  addToQueue: (text, metadata, callback) ->
-    @queue.push {'text': text, 'metadata': metadata, 'callback': callback}
-    if(!@running && @ready) 
-      @work()
 
   work: ->
     @running = true
