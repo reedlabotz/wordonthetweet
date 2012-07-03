@@ -15,9 +15,18 @@
   <![endif]-->
 </head>
 <body>
+  <div class="menu">
+    <a href="#" rel="tooltip" title="Settings" id="settings-btn"><i class="icon-cog"></i> </a>
+    
+  </div>
   <div class="container-fluid">
     <div class="row-fluid">
-      <div id="results" class="results">
+
+      <div id="results" class="results span4">
+      </div>
+      <div id="results2" class="results span4">
+      </div>
+      <div id="results3" class="results span4">
       </div>
     </div>
   </div>
@@ -28,10 +37,25 @@
       <h3>Word on the tweet</h3>
     </div>
     <div class="modal-body">
-      <p>Options here</p>
+      <div class="form-inline">
+        <input type="text" placeholder="Search term" class="input-medium" value="hulu"> 
+        <input type="text" placeholder="Refresh rate" class="input-small" value="10"> seconds
+      </div>
+      <br>
+      <div class="form-inline">
+        <input type="text" placeholder="Search term" class="input-medium" value="hulu plus"> 
+        <input type="text" placeholder="Refresh rate" class="input-small" value="10"> seconds
+      </div>
+      <br>
+      <div class="form-inline">
+        <input type="text" placeholder="Search term" class="input-medium" value="@hulu"> 
+        <input type="text" placeholder="Refresh rate" class="input-small" value="10"> seconds
+      </div>
+      <br>
+      <a href="#" class="btn" id="options-add"><i class="icon-plus-sign"></i> Add column</a>
     </div>
     <div class="modal-footer">
-      <a href="#" class="btn btn-primary">Close</a>
+      <a href="#" class="btn btn-primary" id="options-done">Done</a>
     </div>
   </div>
   

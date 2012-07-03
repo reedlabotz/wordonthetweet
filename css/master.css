@@ -1,5 +1,12 @@
 body{
   margin: 20px;
+  background: url('../img/groovepaper.png');
+}
+
+.menu{
+  position: fixed;
+  top: 5px;
+  right: 5px;
 }
 
 .clear{
@@ -16,7 +23,10 @@ body{
   -moz-border-radius: 5px;
   border-radius: 5px;
   padding: 5px;
-  margin: 10px;
+  margin: 10px 0px;
+  -webkit-box-shadow: 0 8px 6px -6px #666;
+     -moz-box-shadow: 0 8px 6px -6px #666;
+          box-shadow: 0 8px 6px -6px #666;
 }
 
 .avatar{

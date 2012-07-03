@@ -14,6 +14,7 @@ class Analyzer
       caller.work()
 
   addToQueue: (text, metadata, callback) ->
+    console.log "add",callback
     @queue.push {'text': text, 'metadata': metadata, 'callback': callback}
     if(!@running && @ready) 
       @work()
@@ -22,6 +23,7 @@ class Analyzer
   ## Private functions ##
 
   analyze: (text, metadata, callback) ->
+    #console.log "analyze",callback
     words = text.toLowerCase().split /\W+/
     sentiments = []
     for word in words

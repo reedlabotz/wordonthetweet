@@ -1,8 +1,9 @@
 class Stream
-  constructor: (analyzer, searchTerm, refreshRate) ->
+  constructor: (analyzer, searchTerm, refreshRate, results) ->
     @searchTerm = searchTerm
     @refreshRate = refreshRate
     @analyzer = analyzer
+    @results = results
 
     @lastMaxId = 0
     @positiveCount = 0;
@@ -31,7 +32,7 @@ class Stream
     if data['error'] == undefined
       @lastMaxId = data['max_id_str']
       for tweet in data['results']
-        @analyzer.addToQueue(tweet['text'], tweet, caller.addToInterface) if tweet['iso_language_code'] == "en"
+        @analyzer.addToQueue(tweet['text'], tweet, (tweet, metadata, sentiment) => @addToInterface(tweet, metadata, sentiment)) if tweet['iso_language_code'] == "en"
     setTimeout () -> 
       caller.grabTweets() 
     , caller.refreshRate
@@ -45,4 +46,4 @@ class Stream
     $("<div class='tweet " + emotion + "''>" + 
       "<img src='" + metadata['profile_image_url'] + "' class='avatar'>" +
       "<strong>@" + metadata['from_user'] + "</strong><br>" + 
-      tweet + "<div class='clear'></div></div>").hide().prependTo('#results').slideDown("slow");
+      tweet + "<div class='clear'></div></div>").hide().prependTo(@results).slideDown("slow");
