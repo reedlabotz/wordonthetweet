@@ -1,3 +1,7 @@
 $(document).ready ->
+  $("#options").modal({
+    backdrop: true,
+  })
+  $("#options").modal("show")
   analyzer = new Analyzer('AFINN-111-emo.txt')
   stream = new Stream(analyzer, 'hulu', 10 * 1000)
