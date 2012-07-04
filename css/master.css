@@ -44,6 +44,11 @@ body{
 
 /* Stream */
 
+.stream h3{
+  height: 27px;
+  overflow: hidden;
+}
+
 ul.tweets{
   overflow-y: scroll;
   padding: 0px;
@@ -83,7 +88,9 @@ ul.tweets{
   margin-right: -5px;
   margin-bottom: 5px;
   color: #ffffff;
-  text-indent: 5px
+  text-indent: 5px;
+  height: 19px;
+  overflow: hidden;
 }
 
 .tweet .title-bar em{
@@ -140,5 +147,5 @@ ul.tweets{
 .row-fluid .column-count2{width:48.93617020799999%;*width:48.88297871863829%;}
 .row-fluid .column-count3{width:31.914893614%;*width:31.8617021246383%;}
 .row-fluid .column-count4{width:23.404255317%;*width:23.3510638276383%;}
-.row-fluid .column-count5{width:14.89361702%;*width:14.8404255306383%;}
+.row-fluid .column-count5{width:18.29%;*width:18.29%;}
 .row-fluid .column-count6{width:14.89361702%;*width:14.8404255306383%;}
