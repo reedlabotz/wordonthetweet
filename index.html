@@ -15,22 +15,37 @@
   <![endif]-->
 </head>
 <body>
+  <div class="menu">
+    <a href="#" rel="tooltip" title="Settings" id="settings-btn"><i class="icon-cog"></i> </a>
+    
+  </div>
   <div class="container-fluid">
-    <h1>Word on the Tweet</h1>
-    <div class="well form-search">
-      <input type="text" placeholder="Search term" id="searchTerm" class="input-medium search-query"> 
-      <input type="button" value="Search" id="searchButton" class="btn">
+    <div class="row-fluid" id="stream-holder">
     </div>
-    <div class="row-fluid">
-      <div id="results" class="results">
+  </div>
+
+  <div class="modal hide" id="options">
+    <div class="modal-header">
+      <h2>Word on the tweet</h2>
+      <p>A twitter dashboard that allows you to see what the world is thinking about an issue. Tweets are pulled in from twitter and analyzed for positive or negative sentiments.</p>
+      <p><a href="https://github.com/reedlabotz/wordonthetweet">More info</a>.</p>
+    </div>
+    <div class="modal-body">
+      <div id="options-errors">
       </div>
+      <div id="options-columns">
+      </div>
+      <a href="#" class="btn" id="options-add-btn"><i class="icon-plus"></i> Add column</a>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary" id="options-done-btn">Done</a>
     </div>
   </div>
   
   <!-- Javascript -->
   <script src="js/lib/jquery-1.7.2.min.js"></script>
+  <script src="js/lib/jquery.timeago.min.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
-  <script src="js/lib/angular.min.js"></script>
   <script src="js/application.min.js"></script>
 </body>
 </html>
