@@ -4,17 +4,15 @@ class Analyzer
     @queue = []
     @running = false
     @ready = false
-    caller = @
-    $.get dictionary_path, (data) -> 
+    $.get dictionary_path, (data) => 
       lines = data.split '\n'
       for line in lines 
         [word, value] = line.split '\t'
-        caller.afinn[word] = parseInt value
-      caller.ready = true
-      caller.work()
+        @afinn[word] = parseInt value
+      @ready = true
+      @work()
 
   addToQueue: (text, metadata, callback) ->
-    console.log "add",callback
     @queue.push {'text': text, 'metadata': metadata, 'callback': callback}
     if(!@running && @ready) 
       @work()
@@ -23,7 +21,6 @@ class Analyzer
   ## Private functions ##
 
   analyze: (text, metadata, callback) ->
-    #console.log "analyze",callback
     words = text.toLowerCase().split /\W+/
     sentiments = []
     for word in words

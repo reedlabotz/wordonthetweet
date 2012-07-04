@@ -20,49 +20,32 @@
     
   </div>
   <div class="container-fluid">
-    <div class="row-fluid">
-
-      <div id="results" class="results span4">
-      </div>
-      <div id="results2" class="results span4">
-      </div>
-      <div id="results3" class="results span4">
-      </div>
+    <div class="row-fluid" id="stream-holder">
     </div>
   </div>
 
   <div class="modal hide" id="options">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">×</button>
-      <h3>Word on the tweet</h3>
+      <h2>Word on the tweet</h2>
+      <p>A twitter dashboard that allows you to see what the world is thinking about an issue. Tweets are pulled in from twitter and analyzed for positive or negative sentiments.</p>
+      <p><a href="https://github.com/reedlabotz/wordonthetweet">More info</a>.</p>
     </div>
     <div class="modal-body">
-      <div class="form-inline">
-        <input type="text" placeholder="Search term" class="input-medium" value="hulu"> 
-        <input type="text" placeholder="Refresh rate" class="input-small" value="10"> seconds
+      <div id="options-errors">
       </div>
-      <br>
-      <div class="form-inline">
-        <input type="text" placeholder="Search term" class="input-medium" value="hulu plus"> 
-        <input type="text" placeholder="Refresh rate" class="input-small" value="10"> seconds
+      <div id="options-columns">
       </div>
-      <br>
-      <div class="form-inline">
-        <input type="text" placeholder="Search term" class="input-medium" value="@hulu"> 
-        <input type="text" placeholder="Refresh rate" class="input-small" value="10"> seconds
-      </div>
-      <br>
-      <a href="#" class="btn" id="options-add"><i class="icon-plus-sign"></i> Add column</a>
+      <a href="#" class="btn" id="options-add-btn"><i class="icon-plus"></i> Add column</a>
     </div>
     <div class="modal-footer">
-      <a href="#" class="btn btn-primary" id="options-done">Done</a>
+      <a href="#" class="btn btn-primary" id="options-done-btn">Done</a>
     </div>
   </div>
   
   <!-- Javascript -->
   <script src="js/lib/jquery-1.7.2.min.js"></script>
+  <script src="js/lib/jquery.timeago.min.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
-  <script src="js/lib/angular.min.js"></script>
   <script src="js/application.js"></script>
 </body>
 </html>
