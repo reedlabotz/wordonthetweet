@@ -66,5 +66,5 @@ class Stream
         #{ tweet }
         <div class='clear'></div>
       </li>"
-    ).hide().prependTo(@container + ' .tweets').slideDown("medium");
+    ).hide().prependTo(@container + ' .tweets').slideDown(500);
     $(element).find("abbr.timeago").timeago();

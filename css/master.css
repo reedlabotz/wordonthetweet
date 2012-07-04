@@ -111,14 +111,12 @@ ul.tweets{
   background: #818181;
 }
 
-.avatar{
+.tweet .avatar{
   float: left;
   margin-right: 5px;
   width: 48px;
   height: 48px;
 }
-
-
 
 
 /* bootstrap bugs */
