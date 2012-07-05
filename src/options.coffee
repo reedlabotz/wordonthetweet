@@ -62,9 +62,6 @@ class Options
         if !stream
           @addError("All fields are required.")
           error = true
-      else
-        refreshRate = $(element).find(OPTIONS_REFRESH_RATE).val()
-        stream.setRefreshRate(refreshRate)
 
     if !error
       @hide()
@@ -92,21 +89,18 @@ class Options
     if searchTerm == ''
       error = true
       $(element).find(OPTIONS_SEARCH_TERM).parent().addClass('error')
-    else if $(element).find(OPTIONS_SEARCH_TERM_HOLDER).find('.uneditable-input').length < 1
-        $(element).find(OPTIONS_SEARCH_TERM_HOLDER).append(
-            "<span class='input-medium uneditable-input'>#{ searchTerm }</span>"
-        )
-        $(element).find(OPTIONS_SEARCH_TERM).hide()
     
     refreshRate = $(element).find(OPTIONS_REFRESH_RATE).val()
     if refreshRate == ''
       error = true
       $(element).find(OPTIONS_REFRESH_RATE).parent().parent().addClass('error')
 
-    refreshRate = parseInt(refreshRate) * 1000
-
     if error
       return false
+
+    $(element).find(OPTIONS_SEARCH_TERM).hide()
+    $(element).find(OPTIONS_REFRESH_RATE).parent().hide()
+    $(element).find(OPTIONS_SEARCH_TERM_HOLDER).append("Search for #{ searchTerm } every #{ refreshRate } seconds")
 
     $(STREAM_HOLDER).append(
       "<div class='stream' id='stream-#{ @nextStreamId }'>
@@ -115,6 +109,8 @@ class Options
         </ul>
       </div>"
     )
+
+    refreshRate = parseInt(refreshRate) * 1000
 
     stream = new Stream(@analyzer, searchTerm, refreshRate, "#stream-#{ @nextStreamId }")
     $(element).data('stream', stream)
