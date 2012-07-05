@@ -77,9 +77,17 @@ ul.tweets{
   border: 1px solid #ff1616;
 }
 
+span.negative-text{
+  color: #ff1616;
+}
+
 .positive{
   background: #befcc9;
   border: 1px solid #06b324;
+}
+
+span.positive-text{
+  color: #06b324;
 }
 
 .neutral{
