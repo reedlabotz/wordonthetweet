@@ -2,6 +2,7 @@ FILES = {'js/*.min.js' => 'js/',
          'js/lib/*' => 'js/lib/',
          'css/*.min.css' => 'css/',
          'img/*' => 'img/',
+         'font/*' => 'font/',
          'AFINN-111-emo.txt' => ''}
 
 task :default => [:compile, :minify]
