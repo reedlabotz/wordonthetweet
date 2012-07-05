@@ -23,6 +23,7 @@ class Options
     $(OPTIONS_CONTAINER).modal("hide")
 
   addColumn: () ->
+    _gaq.push(['_trackEvent', 'Options', 'Columns', 'Add']);
     count = $(OPTIONS_COLUMN).length
     if count == MAX_COLUMNS
       @addError('There is a maximum of ' + MAX_COLUMNS + ' columns.')
@@ -44,6 +45,7 @@ class Options
         @removeColumn(e.target)
 
   removeColumn: (element) ->
+    _gaq.push(['_trackEvent', 'Options', 'Columns', 'Remove']);
     console.log element
     console.log $(element).parent()
     stream = $(element).parent().data('stream')
@@ -66,9 +68,12 @@ class Options
     if !error
       @hide()
       count = $(OPTIONS_COLUMN).length
+      _gaq.push(['_trackEvent', 'Options', 'Done', length]);
       $(STREAM).each (i, element) ->
         $(element).removeClass("column-count1 column-count2 column-count3 column-count4 column-count5 column-count6")
         $(element).addClass("column-count#{ count }")
+    else
+      _gaq.push(['_trackEvent', 'Options', 'Done', 'Error']);
       
 
   addError: (message) ->
@@ -98,6 +103,8 @@ class Options
     if error
       return false
 
+    _gaq.push(['_trackEvent', 'Options', 'Stream-Term', searchTerm]);
+    _gaq.push(['_trackEvent', 'Options', 'Stream-Rate', refreshRate]);
     $(element).find(OPTIONS_SEARCH_TERM).hide()
     $(element).find(OPTIONS_REFRESH_RATE).parent().hide()
     $(element).find(OPTIONS_SEARCH_TERM_HOLDER).append("Search for <strong>#{ searchTerm }</strong> every <em>#{ refreshRate } seconds</em>")
