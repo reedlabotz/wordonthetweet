@@ -100,7 +100,7 @@ class Options
 
     $(element).find(OPTIONS_SEARCH_TERM).hide()
     $(element).find(OPTIONS_REFRESH_RATE).parent().hide()
-    $(element).find(OPTIONS_SEARCH_TERM_HOLDER).append("Search for #{ searchTerm } every #{ refreshRate } seconds")
+    $(element).find(OPTIONS_SEARCH_TERM_HOLDER).append("Search for <strong>#{ searchTerm }</strong> every <em>#{ refreshRate } seconds</em>")
 
     $(STREAM_HOLDER).append(
       "<div class='stream' id='stream-#{ @nextStreamId }'>
