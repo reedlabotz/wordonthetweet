@@ -62,6 +62,9 @@ class Options
         if !stream
           @addError("All fields are required.")
           error = true
+      else
+        refreshRate = $(element).find(OPTIONS_REFRESH_RATE).val()
+        stream.setRefreshRate(refreshRate)
 
     if !error
       @hide()
