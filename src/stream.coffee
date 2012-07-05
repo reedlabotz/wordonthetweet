@@ -24,8 +24,6 @@ class Stream
   ## Private functions ## 
 
   removeOld: () ->
-    console.log $(@container).find("li").length
-    console.log $(@container).find("li:gt(#{ MAX_TWEETS_SHOWN })").length
     $(@container).find("li:gt(#{ MAX_TWEETS_SHOWN })").remove()
 
 

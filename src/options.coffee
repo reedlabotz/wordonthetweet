@@ -46,10 +46,7 @@ class Options
 
   removeColumn: (element) ->
     _gaq.push(['_trackEvent', 'Options', 'Columns', 'Remove']);
-    console.log element
-    console.log $(element).parent()
     stream = $(element).parent().data('stream')
-    console.log stream
     if stream != undefined
       stream.destroy()
     $(element).parent().remove()
@@ -68,7 +65,7 @@ class Options
     if !error
       @hide()
       count = $(OPTIONS_COLUMN).length
-      _gaq.push(['_trackEvent', 'Options', 'Done', length]);
+      _gaq.push(['_trackEvent', 'Options', 'Done', "" + count]);
       $(STREAM).each (i, element) ->
         $(element).removeClass("column-count1 column-count2 column-count3 column-count4 column-count5 column-count6")
         $(element).addClass("column-count#{ count }")
