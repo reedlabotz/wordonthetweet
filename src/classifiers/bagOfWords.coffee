@@ -1,4 +1,4 @@
-class Analyzer
+class BagOfWords
   constructor: (dictionary_path) ->
     @afinn = {}
     @queue = []

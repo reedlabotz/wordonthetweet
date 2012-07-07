@@ -52,8 +52,8 @@ class Stream
       when 'positive' then @positiveCount++
       when 'negative' then @negativeCount++
       when 'neutral' then @neutralCount++  
-    element = $(
-      "<li class='tweet #{ emotion }'>
+    element = $("""
+      <li class='tweet #{ emotion }'>
         <div class='title-bar'>
           <strong>@#{ metadata['from_user'] }</strong> 
           <em>
@@ -63,6 +63,6 @@ class Stream
         <img src='#{ metadata['profile_image_url'] }' class='avatar'>
         #{ tweet }
         <div class='clear'></div>
-      </li>"
-    ).hide().prependTo(@container + ' .tweets').slideDown(500);
+      </li>
+    """).hide().prependTo(@container + ' .tweets').slideDown(500);
     $(element).find("abbr.timeago").timeago();

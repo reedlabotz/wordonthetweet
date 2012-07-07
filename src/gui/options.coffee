@@ -28,8 +28,8 @@ class Options
     if count == MAX_COLUMNS
       @addError('There is a maximum of ' + MAX_COLUMNS + ' columns.')
     else
-      $(OPTIONS_COLUMNS).append(
-        '<div class="form-inline options-column">
+      $(OPTIONS_COLUMNS).append("""
+        <div class="form-inline options-column">
           <div class="control-group search-term-holder">
             <input type="text" placeholder="Search term" class="input-medium search-term"> 
           </div>
@@ -39,8 +39,8 @@ class Options
               </div>
           </div>
           <i class="remove-column icon-remove"></i>
-        </div>'
-      )
+        </div>
+      """)
       $(OPTIONS_REMOVE_COLUMN).click (e) => 
         @removeColumn(e.target)
 
@@ -74,12 +74,12 @@ class Options
       
 
   addError: (message) ->
-    $(OPTIONS_ERRORS).append(
-        "<div class='alert alert-error'>
+    $(OPTIONS_ERRORS).append("""
+        <div class='alert alert-error'>
         <a class='close' data-dismiss='alert' href='#''>×</a>
         #{ message }
-        </div>"
-      )
+        </div>
+      """)
 
   createNewStream: (element) ->
     $(element).find('.error').each((i,element)->
@@ -106,13 +106,13 @@ class Options
     $(element).find(OPTIONS_REFRESH_RATE).parent().hide()
     $(element).find(OPTIONS_SEARCH_TERM_HOLDER).append("Search for <strong>#{ searchTerm }</strong> every <em>#{ refreshRate } seconds</em>")
 
-    $(STREAM_HOLDER).append(
-      "<div class='stream' id='stream-#{ @nextStreamId }'>
+    $(STREAM_HOLDER).append("""
+      <div class='stream' id='stream-#{ @nextStreamId }'>
         <h3><i class='icon-search'></i> #{ searchTerm }</h3>
         <ul class='tweets'>
         </ul>
-      </div>"
-    )
+      </div>
+    """)
 
     refreshRate = parseInt(refreshRate) * 1000
 

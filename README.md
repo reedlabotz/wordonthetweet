@@ -39,4 +39,24 @@ rake publish && git push origin gh-pages
 
 Links
 -----
+### AFINN bag of words
 http://fnielsen.posterous.com/simplest-sentiment-analysis-in-python-with-af
+
+### Sanders Twitter Sentiment Corpus
+http://www.sananalytics.com/lab/twitter-sentiment/
+
+### Twitter sentiment
+https://sites.google.com/site/twittersentimenthelp/home
+
+### Naive bayes classifier
+https://github.com/sonesuke/classifier
+
+### Norvig spelling checker
+https://github.com/danielribeiro/Coffeescript-Spelling-Corrector
+http://norvig.com/spell-correct.html
+
+### Twitter bootstrap
+http://twitter.github.com/bootstrap/
+
+### jQuery
+http://jquery.com/

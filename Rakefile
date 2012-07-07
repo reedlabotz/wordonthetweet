@@ -9,7 +9,7 @@ task :default => [:compile, :minify]
 
 task :compile do
   puts 'Compiling coffeescript -> application.js'
-  run_command("coffee --join js/application.js --compile src/*.coffee")
+  run_command("coffee --join js/application.js --compile src/")
 end
 
 task :minify do
@@ -46,7 +46,7 @@ task :clean do
 end
 
 task :watch do
-  run_command("coffee --watch --join js/application.js --compile src/*.coffee")
+  run_command("coffee --watch --join js/application.js --compile src/")
 end
 
 task :server do
