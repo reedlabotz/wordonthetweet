@@ -51,8 +51,6 @@ task :prepare do
   run_command('rm scripts/naiveBayesClassifier.coffee')
   puts 'Removing tweet.coffee'
   run_command('rm scripts/tweet.coffee')
-  puts 'Copying afinn-111-emo.json -> data'
-  run_command('cp raw_data/afinn-111-emo.json data/')
 end
 
 task :clean do

@@ -1,4 +1,4 @@
-class BagOfWords
+class BagOfWordsClassifier
   constructor: (dictionary_path) ->
     @afinn = {}
     @queue = []
@@ -9,16 +9,16 @@ class BagOfWords
       @ready = true
       @work()
 
-  addToQueue: (text, metadata, callback) ->
-    @queue.push {'text': text, 'metadata': metadata, 'callback': callback}
+  addToQueue: (tweet, callback) ->
+    @queue.push {'tweet': tweet, 'callback': callback}
     if(!@running && @ready) 
       @work()
 
 
   ## Private functions ##
 
-  analyze: (text, metadata, callback) ->
-    words = text.toLowerCase().split /\W+/
+  analyze: (tweet, callback) ->
+    words = tweet.words()
     sentiments = []
     for word in words
       if @afinn[word] != undefined
@@ -28,11 +28,13 @@ class BagOfWords
     for s in sentiments
       sum += s
     sqrt = Math.sqrt sentiments.length
-    callback text, metadata, (sum/sqrt)
+    value = (sum/sqrt)
+    sentiment = if value > 0 then 'positive' else if value < 0 then 'negative' else 'neutral'
+    callback tweet, sentiment
 
   work: ->
     @running = true
     while @queue.length > 0
       job = @queue.shift()
-      @analyze(job.text, job.metadata, job.callback)
+      @analyze(job.tweet, job.callback)
     @running = false

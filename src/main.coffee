@@ -2,7 +2,7 @@ $(document).ready ->
   init()  
 
 init = () ->
-  analyzer = new Analyzer(AFINN_LOCATION)
+  analyzer = new Analyzer()
 
   options = new Options(analyzer)
 

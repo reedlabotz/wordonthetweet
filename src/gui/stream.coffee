@@ -41,27 +41,27 @@ class Stream
     if data['error'] == undefined
       @lastMaxId = data['max_id_str']
       for tweet in data['results'].reverse()
-        @analyzer.addToQueue(tweet['text'], tweet, (tweet, metadata, sentiment) => 
-          @addToInterface(tweet, metadata, sentiment)) 
+        t = new Tweet(tweet)
+        @analyzer.addToQueue(t, (tweet_out) => 
+          @addToInterface(tweet_out)) 
     @timer = setTimeout((() => @grabTweets()), @refreshRate)
 
-  addToInterface: (tweet, metadata, sentiment) ->
-    date = new Date(Date.parse(metadata['created_at']))
-    emotion = if sentiment > 0 then 'positive' else if sentiment < 0 then 'negative' else 'neutral'
-    switch emotion
+  addToInterface: (tweet) ->
+    date = new Date(Date.parse(tweet['created_at']))
+    switch tweet['sentiment']
       when 'positive' then @positiveCount++
       when 'negative' then @negativeCount++
       when 'neutral' then @neutralCount++  
     element = $("""
-      <li class='tweet #{ emotion }'>
+      <li class='tweet #{ tweet['sentiment'] }'>
         <div class='title-bar'>
-          <strong>@#{ metadata['from_user'] }</strong> 
+          <strong>@#{ tweet['username'] }</strong> 
           <em>
             <abbr class='timeago' title='#{ date.toISOString() }'>#{ date }</abbr>
           </em>
           </div>
-        <img src='#{ metadata['profile_image_url'] }' class='avatar'>
-        #{ tweet }
+        <img src='#{ tweet['profile_url'] }' class='avatar'>
+        #{ tweet['text'] }
         <div class='clear'></div>
       </li>
     """).hide().prependTo(@container + ' .tweets').slideDown(500);

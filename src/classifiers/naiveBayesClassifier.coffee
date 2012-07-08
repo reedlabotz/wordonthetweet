@@ -1,9 +1,11 @@
 # adapted from https://github.com/sonesuke/classifier
 
 class Backend
-    constructor: ->
+    constructor: (dictionary_path = null) ->
         @featureCount = {}
         @categoryCount = {}
+        if dictionary_path != null
+            @loadData(dictionary_path)
 
     outputData: (callback) ->
         featureCount = @featureCount
@@ -43,8 +45,11 @@ class Backend
 
 
 class Classifier
-    constructor: () ->
-        @backend = new Backend()
+    constructor: (dictionary_path = null) ->
+        @backend = new Backend(dictionary_path)
+
+    loadData: (dictionary_path) ->
+        @backend.loadData dictionary_path
 
     train: (tweet) ->
         features = tweet.tokenize()
@@ -70,9 +75,12 @@ class Classifier
 
 
 class NaiveBayesClassifier extends Classifier
-    constructor: () ->
-        super 
+    constructor: (dictionary_path = null) ->
+        super dictionary_path
         @thresholds = []
+
+    loadData: (dictionary_path) ->
+        super dictionary_path
 
     getProbability: (item, category) ->
         categoryProbability = @backend.getCategoryCount(category) / @backend.getTotalCount()

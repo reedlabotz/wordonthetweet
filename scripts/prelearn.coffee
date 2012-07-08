@@ -17,5 +17,18 @@ learnData = (input, output, cutoff) ->
       fs.writeFile output, json, (err, data) ->
         console.log "-done with", input, "->", output
 
+fixAfinn = () ->
+  fs.readFile 'raw_data/afinn-111-emo.json', 'utf8', (err, data) ->
+    doubleLetter = /([a-z])\1+/g
+    output = {}
+    for w, v of JSON.parse data
+      w = w.replace doubleLetter, "$1"
+      output[w] = v
+    json = JSON.stringify output
+    fs.writeFile 'data/afinn-111-emo.json', json, (err, data) ->
+      console.log "-done with afinn"
+
+
 learnData 'raw_data/labeled.json', 'data/labeled.json', 0
 learnData 'raw_data/emoticon.json', 'data/emoticon.json', 1
+fixAfinn()

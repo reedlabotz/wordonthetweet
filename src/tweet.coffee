@@ -17,6 +17,9 @@ class Tweet
       lastW = w
     return output
 
+  words: ->
+    @clean_text.split /\s+/g
+
   clean = (text) ->
     text = text.toLowerCase()
 
@@ -42,7 +45,7 @@ class Tweet
     text = text.replace letterPunctuation, "$1 $2"
 
     doubleLetter = /([a-z])\1+/g
-    text = text.replace doubleLetter, "$1$1"
+    text = text.replace doubleLetter, "$1"
 
     text = text.trim()
 
