@@ -2,22 +2,32 @@
 
 class Backend
     constructor: ->
-        @featureCount = []
-        @categoryCount = []
+        @featureCount = {}
+        @categoryCount = {}
+
+    outputData: (callback) ->
+        featureCount = @featureCount
+        categoryCount = @categoryCount
+        callback {'featureCount': featureCount, 'categoryCount': categoryCount}
+
+    loadData: (path) ->
+        $.getJSON path, (data) => 
+            @featureCount = data['featureCount']
+            @categoryCount = data['categoryCount']
     
     incrementFeature: (feature, category) ->
-        @featureCount[feature] = [] if not @featureCount[feature]?
-        @featureCount[feature][category] = 0 if not @featureCount[feature][category]?
-        @featureCount[feature][category] += 1
+        @featureCount[category] = {} if not @featureCount[category]?
+        @featureCount[category][feature] = 0 if not @featureCount[category][feature]?
+        @featureCount[category][feature] += 1
 
     incrementCategory: (category) ->
         @categoryCount[category] = 0 if not @categoryCount[category]?
         @categoryCount[category] += 1
 
     getFeatureCount: (feature, category) ->
-        return 0.0 if not @featureCount[feature]?
-        return 0.0 if not @featureCount[feature][category]?
-        1 * @featureCount[feature][category]
+        return 0.0 if not @featureCount[category]?
+        return 0.0 if not @featureCount[category][feature]?
+        1 * @featureCount[category][feature]
 
     getCategoryCount: (category) ->
         return 0.0 if not @categoryCount[category]?
@@ -33,14 +43,13 @@ class Backend
 
 
 class Classifier
-    constructor: (getFeatureFunc) ->
-        @getFeatureFunc = getFeatureFunc
+    constructor: () ->
         @backend = new Backend()
 
-    training: (item, category) ->
-        features = @getFeatureFunc(item)
-        @backend.incrementFeature(feature, category) for feature in features
-        @backend.incrementCategory(category)
+    train: (tweet) ->
+        features = tweet.tokenize()
+        @backend.incrementFeature(feature, tweet['sentiment']) for feature in features
+        @backend.incrementCategory(tweet['sentiment'])
 
     getFeatureProbability: (feature, category) ->
         categoryCount = @backend.getCategoryCount(category)
@@ -56,15 +65,18 @@ class Classifier
         sum += @backend.getFeatureCount(feature, category) for category in @backend.getCategories()
         ((weight * ap) + (sum * basicProbability)) / (weight + sum)
 
+    outputData: (callback) ->
+        @backend.outputData callback
+
 
 class NaiveBayesClassifier extends Classifier
-    constructor: (getFeatureFunc) ->
-        super getFeatureFunc
+    constructor: () ->
+        super 
         @thresholds = []
 
     getProbability: (item, category) ->
         categoryProbability = @backend.getCategoryCount(category) / @backend.getTotalCount()
-        features = @getFeatureFunc(item)
+        features = item.tokenize()
         self = this
         getProbability = (feature, category) ->
             self.getFeatureProbability(feature, category)

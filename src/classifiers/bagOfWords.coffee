@@ -4,11 +4,8 @@ class BagOfWords
     @queue = []
     @running = false
     @ready = false
-    $.get dictionary_path, (data) => 
-      lines = data.split '\n'
-      for line in lines 
-        [word, value] = line.split '\t'
-        @afinn[word] = parseInt value
+    $.getJSON dictionary_path, (data) => 
+      @afinn = data
       @ready = true
       @work()
 

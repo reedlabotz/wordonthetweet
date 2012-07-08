@@ -5,7 +5,7 @@ FILES = {'js/*.min.js' => 'js/',
          'font/*' => 'font/',
          'AFINN-111-emo.txt' => ''}
 
-task :default => [:compile, :minify]
+task :default => [:compile, :minify, :prepare]
 
 task :compile do
   puts 'Compiling coffeescript -> application.js'
@@ -20,7 +20,7 @@ task :minify do
   run_command("uglifyjs -nc js/application.js > js/application.min.js")
 end
 
-task :publish => [:compile, :minify] do
+task :publish => [:compile, :minify, :prepare] do
   puts 'Creating publish'
   run_command("mkdir publish")
   puts 'Copying files'
@@ -36,6 +36,25 @@ task :publish => [:compile, :minify] do
   run_command("rm -rf publish")
 end
 
+task :prepare do
+  puts 'Creating data'
+  run_command('mkdir data')
+  puts 'Copying naiveBayesClassifier.coffee in'
+  run_command('cp src/classifiers/naiveBayesClassifier.coffee scripts/')
+  puts 'Copying tweet.coffee in'
+  run_command('cp src/tweet.coffee scripts/')
+  puts 'Running script'
+  run_command('coffee --join scripts/out.js --compile scripts/')
+  run_command('node --max-old-space-size=1900 scripts/out.js')
+  run_command('rm scripts/out.js')
+  puts 'Removing naiveBayesClassifier.coffee'
+  run_command('rm scripts/naiveBayesClassifier.coffee')
+  puts 'Removing tweet.coffee'
+  run_command('rm scripts/tweet.coffee')
+  puts 'Copying afinn-111-emo.json -> data'
+  run_command('cp raw_data/afinn-111-emo.json data/')
+end
+
 task :clean do
   puts 'Removing application.js'
   run_command("rm js/application.js")
@@ -43,6 +62,8 @@ task :clean do
   run_command("rm js/application.min.js")
   puts 'Removing master.min.css'
   run_command("rm css/master.min.css")
+  puts 'Removing data'
+  run_command("rm -rf data/")
 end
 
 task :watch do
