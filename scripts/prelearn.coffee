@@ -1,13 +1,15 @@
+#<< app/classifiers/naiveBayesClassifier
+
 fs = require('fs')
 
 learnData = (input, output, cutoff) ->
   console.log "-Learning", input
   fs.readFile input, 'utf8', (err, data) ->
     tweets = JSON.parse data
-    labeled = new NaiveBayesClassifier()
+    labeled = new app.classifiers.NaiveBayesClassifier()
 
     for t in tweets
-      t = new Tweet({'text': t.t, 'sentiment': t.s})
+      t = new app.gui.Tweet({'text': t.t, 'sentiment': t.s})
       labeled.train(t)
     labeled.outputData (data) -> 
       console.log "-Writing", output
@@ -25,10 +27,10 @@ fixAfinn = () ->
       w = w.replace doubleLetter, "$1"
       output[w] = v
     json = JSON.stringify output
-    fs.writeFile 'data/afinn-111-emo.json', json, (err, data) ->
+    fs.writeFile 'www/data/afinn-111-emo.json', json, (err, data) ->
       console.log "-done with afinn"
 
 
-learnData 'raw_data/labeled.json', 'data/labeled.json', 0
-learnData 'raw_data/emoticon.json', 'data/emoticon.json', 1
+learnData 'raw_data/labeled.json', 'www/data/labeled.json', 0
+learnData 'raw_data/emoticon.json', 'www/data/emoticon.json', 1
 fixAfinn()

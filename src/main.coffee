@@ -1,10 +1,14 @@
+#<< app/analyzer
+#<< app/gui/options
+#<< app/constants
+
 $(document).ready ->
   init()  
 
 init = () ->
-  analyzer = new Analyzer()
+  analyzer = new app.Analyzer()
 
-  options = new Options(analyzer)
+  options = new app.gui.Options(analyzer)
 
-  $(SETTINGS_BTN).tooltip({placement: 'left'})
-  $(SETTINGS_BTN).click () -> options.show()
+  $(app.Constants.SETTINGS_BTN).tooltip({placement: 'left'})
+  $(app.Constants.SETTINGS_BTN).click () -> options.show()
