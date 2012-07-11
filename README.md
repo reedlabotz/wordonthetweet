@@ -10,7 +10,7 @@ Dependencies
 To publish the code doesn't require anything special. Just copy files from gh-pages branch to your server. 
 To use the rake commands, you will need the following.
 ```bash
-npm install -g coffee-script recess uglify-js
+npm install -g coffee-script coffee-toaster
 ```
 
 Develope
@@ -39,24 +39,22 @@ rake publish && git push origin gh-pages
 
 Links
 -----
-### AFINN bag of words
-http://fnielsen.posterous.com/simplest-sentiment-analysis-in-python-with-af
+* AFINN bag of words - http://fnielsen.posterous.com/simplest-sentiment-analysis-in-python-with-af
 
-### Sanders Twitter Sentiment Corpus
-http://www.sananalytics.com/lab/twitter-sentiment/
+* Sanders Twitter Sentiment Corpus - http://www.sananalytics.com/lab/twitter-sentiment/
 
-### Twitter sentiment
-https://sites.google.com/site/twittersentimenthelp/home
+* Twitter sentiment - https://sites.google.com/site/twittersentimenthelp/home
 
-### Naive bayes classifier
-https://github.com/sonesuke/classifier
+* Naive bayes classifier - https://github.com/sonesuke/classifier
 
-### Norvig spelling checker
-https://github.com/danielribeiro/Coffeescript-Spelling-Corrector
-http://norvig.com/spell-correct.html
+* Async javascript library - https://github.com/caolan/async
 
-### Twitter bootstrap
-http://twitter.github.com/bootstrap/
+* Timeago javascritp library - http://timeago.yarp.com/
 
-### jQuery
-http://jquery.com/
+* Enhanced jQuery animations - http://github.com/benbarnett/jQuery-Animate-Enhanced
+
+* Twitter bootstrap - http://twitter.github.com/bootstrap/
+
+* Icon Fonts - http://fortawesome.github.com/Font-Awesome
+
+* jQuery - http://jquery.com/
