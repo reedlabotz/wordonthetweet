@@ -1,21 +1,8 @@
 class BagOfWordsClassifier
   constructor: (dictionary_path) ->
     @afinn = {}
-    @queue = []
-    @running = false
-    @ready = false
     $.getJSON dictionary_path, (data) => 
       @afinn = data
-      @ready = true
-      @work()
-
-  addToQueue: (tweet, callback) ->
-    @queue.push {'tweet': tweet, 'callback': callback}
-    if(!@running && @ready) 
-      @work()
-
-
-  ## Private functions ##
 
   analyze: (tweet, callback) ->
     words = tweet.words()
@@ -29,7 +16,7 @@ class BagOfWordsClassifier
       sum += s
     sqrt = Math.sqrt sentiments.length
     value = (sum/sqrt)
-    sentiment = if value > 0 then 'positive' else if value < 0 then 'negative' else 'neutral'
+    sentiment = if value > 0 then 'p' else if value < 0 then 'n' else null
     callback tweet, sentiment
 
   work: ->

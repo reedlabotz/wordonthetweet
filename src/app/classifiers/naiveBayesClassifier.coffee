@@ -97,12 +97,12 @@ class NaiveBayesClassifier extends app.classifiers.Classifier
     getThreshold: (category) ->
         @thresholds[category] || 0
 
-    classify: (item) ->
+    classify: (tweet) ->
         probs = []
         max = 0.0
-        best = 'hi'
+        best = null
         for category in @backend.getCategories()
-            probs[category] = @getProbability(item,category)
+            probs[category] = @getProbability(tweet,category)
             if probs[category] > max
                 max = probs[category]
                 best = category
@@ -110,4 +110,4 @@ class NaiveBayesClassifier extends app.classifiers.Classifier
         for category, value of probs
             continue if category == best
             return 'unknown' if probs[category] * @getThreshold(best) > probs[best]
-        best
+        return best
