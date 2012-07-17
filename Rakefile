@@ -25,7 +25,7 @@ end
 
 task :clean do
   puts 'Removing app.js'
-  run_command("rm www/js/application.js")
+  run_command("rm www/js/app.js")
   puts 'Removing app-debug.js'
   run_command("rm www/js/app-debug.js")
   run_command("rm -rf www/js/toaster")

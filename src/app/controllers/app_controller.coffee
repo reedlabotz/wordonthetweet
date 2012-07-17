@@ -1,0 +1,2 @@
+class AppController
+  constructor: () ->

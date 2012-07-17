@@ -1,0 +1,3 @@
+class OptionsModel
+  constructor: () ->
+    

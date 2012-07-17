@@ -1,0 +1,2 @@
+class StreamView
+  constructor: () ->

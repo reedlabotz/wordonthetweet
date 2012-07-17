@@ -1,3 +1,26 @@
+#<< app/lib/classifier
+
+class NaiveBayesClassifier extends app.lib.Classifier
+  constructor: (@categories) ->
+    super
+
+  classify: (text) ->
+    tokens = text.tokenize()
+    probs = []
+    max = 0.0
+    best = null
+    for category in @categories
+      probs[category] = @getProbability(tokens,category)
+      if probs[category] > max
+        max = probs[category]
+        best = category
+
+    return best
+
+
+ ##### to be deleted ##### 
+
+
 # adapted from https://github.com/sonesuke/classifier
 class Backend
     constructor: (dictionary_path = null) ->
@@ -46,6 +69,7 @@ class Backend
 class Classifier
     constructor: (dictionary_path = null) ->
         @backend = new app.classifiers.Backend(dictionary_path)
+
 
     loadData: (dictionary_path) ->
         @backend.loadData dictionary_path
