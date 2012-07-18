@@ -47,8 +47,6 @@ Links
 
 * Naive bayes classifier - https://github.com/sonesuke/classifier
 
-* Async javascript library - https://github.com/caolan/async
-
 * Timeago javascritp library - http://timeago.yarp.com/
 
 * Enhanced jQuery animations - http://github.com/benbarnett/jQuery-Animate-Enhanced
