@@ -1,11 +1,13 @@
 class Classifier
   constructor: () ->
     @data = null
+    @ready = false
 
   loadData: (path) ->
     $.getJSON path, (data) =>
       @data = data
-      console.log @, @data
+      @ready = true
+      $(@).trigger app.lib.Classifier.Events.Ready, @
 
   exportData: (path) ->
     $.post path, {'data': @data}, () ->
@@ -13,3 +15,7 @@ class Classifier
 
   classify: () ->
     return "Not implemented"
+
+  @Events = {
+    Ready: "Classifier.Events.Ready"
+  }
