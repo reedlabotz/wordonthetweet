@@ -12,17 +12,6 @@ task :publish => [:clean, :compile] do
   run_command("rm -rf publish")
 end
 
-task :prepare do
-  puts 'Creating data'
-  run_command('mkdir www/data')
-  puts 'Prelearn'
-  run_command('mkdir scripts/js')
-  run_command('toaster -f prelearn-toaster.coffee -c')
-  run_command('node scripts/js/app.js')
-  puts 'Cleaning up'
-  run_command('rm -rf scripts/js')
-end
-
 task :clean do
   puts 'Removing app.js'
   run_command("rm www/js/app.js")

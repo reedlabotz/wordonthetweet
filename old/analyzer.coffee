@@ -25,19 +25,16 @@ class Analyzer
           labeled: (callback) => @labeledNaiveBayes.classify job.tweet, callback
         },
         (tweet, sentiments) =>
-          console.log sentiments
           @decideBest(tweet, sentiments, job.callback)
       
     @running = false
 
   decideBest: (tweet, sentiments, callback) ->
-    console.log sentiments
     lookup = {null: 'neutral', 'p': 'positive', 'n': 'negative'}
     number = {null: 0, 'p': 1, 'n': -1}
     for l, v of sentiments
       console.log l, v
     sum = number[sentiments['bag']] + number[sentiments['emoticon']] + number[sentiments['labeled']]
-    console.log tweet, sentiments, sum
 
     tweet['sentiment'] = lookup[sentiments['emoticon']]
     callback(tweet)

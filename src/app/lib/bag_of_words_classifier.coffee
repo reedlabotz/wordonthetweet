@@ -5,16 +5,16 @@ class BagOfWordsClassifier extends app.lib.Classifier
     super
 
   classify: (text) ->
-    words = tweet.words()
+    words = text.words()
     
     sum = 0
     count = 0
     for word in words
-      if @afinn[word] != undefined
+      if @data[word] != undefined
         sum += @data[word]
         count++
 
     sqrt = Math.sqrt count
     value = (sum/sqrt)
     sentiment = if value > 0 then 'p' else if value < 0 then 'n' else null
-    return sentiment
+    return [sentiment, value]
